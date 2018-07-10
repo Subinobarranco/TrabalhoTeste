@@ -17,14 +17,14 @@ import persistencia.Conexao;
  * @author Administrador
  */
 public class Funcionariodao {
-    public boolean inserir(String cod,String nom,String tel) {
+    public boolean inserir(int cod,String nom,int tel) {
         String sql = "INSERT INTO categoria(descricao) VALUES (?)";//define instrução SQL
         PreparedStatement ps;
         try {
             ps = Conexao.getConexao().prepareStatement(sql);//prepara instrução SQL
-            ps.setString(1, cod);
+            ps.setInt(1, cod);
             ps.setString(2, nom);// primeiro parâmetro indica a ? correspondente, segundo parâmetro a variável que substituirá a ?
-            ps.setString(3, tel);
+            ps.setInt(3, tel);
             ps.execute(); //executa SQL preparada
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -37,7 +37,7 @@ public class Funcionariodao {
         //crie um objeto da classe 
         Funcionariodao dao = new Funcionariodao();
         //chame o método inserir desse objeto
-        boolean result = dao.inserir("01","jose","2456423");
+        boolean result = dao.inserir(01,"jose",2456423);
         if (result) {
             JOptionPane.showMessageDialog(null, "Inserção realizada com sucesso!");
         } else {

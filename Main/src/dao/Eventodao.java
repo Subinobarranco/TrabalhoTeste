@@ -5,8 +5,11 @@
  */
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
@@ -19,14 +22,16 @@ import persistencia.Conexao;
  */
 public class Eventodao {
     
-    public boolean inserir(String datas,String nume,String tipo) {
+    public boolean inserir(String dataString,int nume,int tipo) {
         String sql = "INSERT INTO categoria(nome) VALUES (?)";//define instrução SQL
         PreparedStatement ps;
+        DateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
+        java.sql.Date datas = new java.sql.Date(long fmt.parse(dataString));
         try {
             ps = Conexao.getConexao().prepareStatement(sql);//prepara instrução SQ
-            ps.setString(1, datas);// primeiro parâmetro indica a ? correspondente, segundo parâmetro a variável que substituirá a ?
-            ps.setString(2, nume);
-            ps.setString(3, tipo);
+            ps.setDate(1, datas);// primeiro parâmetro indica a ? correspondente, segundo parâmetro a variável que substituirá a ?
+            ps.setInt(2, nume);
+            ps.setInt(3, tipo);
             ps.execute(); //executa SQL preparada
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -39,7 +44,7 @@ public class Eventodao {
         //crie um objeto da classe 
         Eventodao dao = new Eventodao();
         //chame o método inserir desse objeto
-        boolean result = dao.inserir("14/10/2000", "100", "5");
+        boolean result = dao.inserir("2000/05/13", 100, 5);
         if (result) {
             JOptionPane.showMessageDialog(null, "Inserção realizada com sucesso!");
         } else {

@@ -19,9 +19,9 @@ public class Conexao {
     private static Connection conn;
     private final static String driver = "org.postgresql.Driver";
     private final static String ip = "localhost/";
-    public static String dataBase = "bd";
+    public static String dataBase = "banco.trabalho";
     public static String user = "postgres";
-    public static String password = "125430892";
+    public static String password = "postgres";
 
     public Conexao(Connection conn) {
         this.conn = conn;
